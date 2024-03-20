@@ -9,12 +9,15 @@ namespace Shop.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
-
+        //Estos DbSet, crean las tablas
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Country> Countries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Estos codigos, crearn el indice de cada entidad
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Category>().HasIndex(c => c.Name).IsUnique();
             modelBuilder.Entity<Country>().HasIndex(c => c.Name).IsUnique();
         }
     }
